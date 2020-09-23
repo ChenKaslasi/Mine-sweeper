@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css">
+  <title>Mine-Sweeper - Chen Kaslasi</title>
+</head>
+<body onload="initGame()">
+  <div class="Header">
+    <h1>Mine-Sweeper</h1>
+  </div>
+  <div class="container">
+    <div class="smiley"><img src="images/basic.jpg" ></div>
+    <div class="timer">00:00</div>
+    <div class="levels">
+      <button class="easy" onclick="setLevels(this)">Easy</button>
+      <button class="hard" onclick="setLevels(this)">Hard</button>
+      <button class="extreme" onclick="setLevels(this)">Extreme</button>
+    </div>
+  </div>
+  <script src="js/game.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/mines.js"></script>
+</body>
+</html>
+

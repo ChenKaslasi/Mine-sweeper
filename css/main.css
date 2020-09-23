@@ -1,0 +1,54 @@
+html {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 90vw;
+  max-height: 90vh;
+
+}
+
+table {  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+td {
+  margin: 1px;
+  padding: 20px;
+  border: 1px solid black;
+}
+
+.hide {
+  background-color: dimgrey;
+
+}
+
+.timer {
+  font-weight: bold;
+  margin: 10px;
+}
+
+.smiley img {
+  max-width: 100px;
+  max-height: 100px;
+}
