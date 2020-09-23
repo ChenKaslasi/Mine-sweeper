@@ -27,6 +27,7 @@ body {
 
 table {  
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 20px;
@@ -34,9 +35,11 @@ table {
 
 td {
   margin: 1px;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid black;
 }
+
+tr
 
 .hide {
   background-color: dimgrey;
@@ -51,4 +54,10 @@ td {
 .smiley img {
   max-width: 100px;
   max-height: 100px;
+}
+
+
+span{  
+  font-size: xx-large;
+  margin: 0 10px
 }

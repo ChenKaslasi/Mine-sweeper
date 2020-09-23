@@ -6,6 +6,7 @@ var gSize = 4;
 var gMines = 2;
 var gScore = 0;
 var gFlagsCount = 0;
+var gMinesCount = 0;
 
 var gIsFirstClick;
 var gfirstCoord;
@@ -23,30 +24,33 @@ document.addEventListener('contextmenu', function (e) {
 // Elements
 var elBody = document.querySelector('body')
 var elContainer = document.querySelector('.container')
-var elTable = document.createElement('table')
 
+var elTable = document.createElement('table')
+var elEmoji = document.createElement('div')
 
 function initGame() {
+  // variables init
   gLevel = {
     ROWS: gSize,
     COLUMNS: gSize,
     MINES: gMines
   }
-  gIsFirstClick = true
+
+  gIsFirstClick = true;
+  gFlagsCount = 0;
+  gMinesCount = 0;
+
+  // board init
   gBoard = createBoard()
-  
   refreshMinesAroundCount(gBoard)
   renderGame()
-
 
   // timer Init
   var elTimer = document.querySelector('.timer');
   elTimer.innerText = '00:00';
   if (gTimerInterval) clearInterval(gTimerInterval);
-  // gTimerInterval = null;  
   
 }
-
 
 function createBoard() {
   var board = [];
@@ -71,21 +75,33 @@ function createCell() {
 
 
 function renderBoard(board) {
-  var htmlstr = '<table> <tbody>'
+  // table rendering
+  var htmlStrTable = '<table> <tbody>'
   for (var i = 0; i < board.length; i++) {
-    htmlstr += '<tr>\n'
+    htmlStrTable += '<tr>\n'
     for (var j = 0; j < board.length; j++) {
       var className = `hide cell-${i}-${j}`
-      htmlstr += `<td class="${className}" onclick="cellClicked(${i},${j})" 
+      htmlStrTable += `<td class="${className}" onclick="cellClicked(${i},${j})" 
       oncontextmenu="cellMarked(this,${i},${j})" ></td>`
       // ${gBoard[i][j].isMine ? MINE : board[i][j].minesAroundCount ? board[i][j].minesAroundCount : ''}
     }
-    htmlstr += '</tr>'
+    htmlStrTable += '</tr>'
   }
-  htmlstr += '</tbody></table>'
-  elTable.innerHTML = htmlstr
+  htmlStrTable += '</tbody></table>\n'
+
+  
+  elTable.innerHTML = htmlStrTable
   elContainer.appendChild(elTable)
+
+
+  // mine & flag Emojis rendering
+  var htmlStrEmoji = ''
+  htmlStrEmoji += `<div class="emojis"> <span class="flag">🚩${gFlagsCount}</span>\n <span class="mine">💣${gMinesCount}</span>\n </div>`
+
+  elEmoji.innerHTML = htmlStrEmoji
+  elContainer.appendChild(elEmoji)
 }
+
 
 
 function renderGame() {
@@ -102,8 +118,10 @@ function cellClicked(i, j) {
   }
 
   if (!cell.isShown) {
-    filterCellsToShow(i, j)
+    expandShown(i, j)
     if (cell.isMine) {
+      gMinesCount++;
+      elEmoji.querySelector('.mine').innerText = `💣${gMinesCount}`;
       setGameOver()
     } 
     else if (gScore === (gLevel.ROWS * gLevel.COLUMNS) - gLevel.MINES) {
@@ -131,7 +149,6 @@ function setLevels(el) {
     case "Easy":
       gSize = 4;
       gMines = 2;
-      elContainer.removeChild(elTable)
       initGame();
       break;
 
@@ -149,3 +166,26 @@ function setLevels(el) {
   }
 }
 
+// recursively get negs
+
+function expandShown(i,j) {
+  var cell = gBoard[i][j];
+  if (!cell.isShown) {
+    revealCell({ i, j });
+    if (!cell.isMine) {
+      gScore++;
+      if (!cell.minesAroundCount) {
+        var row = i;
+        var col = j;
+        for (var i = row - 1; i <= row + 1; i++) {
+          if (i < 0 || i >= gBoard.length) continue;
+          for (var j = col - 1; j <= col + 1; j++) {
+              if (j < 0 || j >= gBoard[0].length) continue;
+              if (i === row && j === col) continue;
+              expandShown(i, j);
+          }
+        }
+      }
+    }
+  }
+}

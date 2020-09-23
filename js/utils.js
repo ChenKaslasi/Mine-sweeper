@@ -26,19 +26,6 @@ function getRandomCoords(num) {
 }
 
 
-
-function expandShown(row, col) {
-  for (var i = row - 1; i <= row + 1; i++) {
-    if (i < 0 || i >= gBoard.length) continue;
-    for (var j = col - 1; j <= col + 1; j++) {
-      if (j < 0 || j >= gBoard[0].length) continue;
-      if (i === row && j === col) continue;
-      revealCell({ i: i, j: j });
-    }
-  }
-}
-
-
 function revealCell(coord) {
   var cell = gBoard[coord.i][coord.j];
   cell.isShown = true;
@@ -53,7 +40,7 @@ function revealCell(coord) {
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+  return Math.floor(Math.random() * (max - min)) + min; 
 }
 
 function cellMarked(elCell, i, j) {
@@ -65,11 +52,13 @@ function cellMarked(elCell, i, j) {
       if (!cell.isMarked) {
         gBoard[i][j].isMarked = true;
         elCell.innerText = '🚩'
-        gFlagsCount++
+        gFlagsCount++;
+        elEmoji.querySelector('.flag').innerText = `🚩${gFlagsCount}`;
       } else {
         gBoard[i][j].isMarked = false;
         elCell.innerText = ' ';
         gFlagsCount--
+        elEmoji.querySelector('.flag').innerText = `🚩${gFlagsCount}`;
       }
     }
   }
