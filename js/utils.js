@@ -45,9 +45,7 @@ function getRandomInt(min, max) {
 
 function cellMarked(elCell, i, j) {
   var cell = gBoard[i][j]
-  if (gIsFirstClick) {
-    console.log('flag at first click')
-  } else {
+  if (!gIsFirstClick) {
     if (!cell.isShown) {
       if (!cell.isMarked) {
         gBoard[i][j].isMarked = true;
