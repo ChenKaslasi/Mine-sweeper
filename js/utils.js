@@ -35,6 +35,16 @@ function revealCell(coord) {
   elCell.innerText = cell.isMine ? MINE : (cell.minesAroundCount ? cell.minesAroundCount : '');
 }
 
+function HidelCell(coord) {
+  var cell = gBoard[coord.i][coord.j];
+  cell.isShown = false;
+  var elCell = document.querySelector(`.cell-${coord.i}-${coord.j}`)
+  elCell.classList.add('hide');
+  elCell.classList.remove('show');
+  elCell.innerText = cell.isMarked ? MARK : '';
+}
+
+
 
 
 function getRandomInt(min, max) {
@@ -69,8 +79,8 @@ function startTimer() {
   var sec = Math.floor((diff % (1000 * 60)) / 1000);
   var min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
   var elTimer = document.querySelector('.timer');
-  if (min<10) { min = "0" + min; }
-  if (sec<10) { sec = "0" + sec; }
+  if (min<10) { min = "0" + min; };
+  if (sec<10) { sec = "0" + sec; };
 
   elTimer.innerText = `${min}:${sec} `;
 }
