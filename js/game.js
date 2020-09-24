@@ -38,6 +38,7 @@ var elTable = document.createElement('table')
 var elEmoji = document.createElement('div')
 var elLives = document.createElement('div')
 var elSafeClick = document.createElement('buttun')
+var elFooter = document.createElement('div')
 
 
 // Disable right click
@@ -148,7 +149,12 @@ function renderBoard(board) {
   elContainer.appendChild(elLives)
 }
 
+// rendering - footer
+var htmlFooter = '';
+htmlFooter += `<div class="footer">Ⓒ Chen kaslasi</div>`
 
+elFooter.innerHTML = htmlFooter;
+elBody.appendChild(elFooter)
 
 function renderGame() {
   renderBoard(gBoard);

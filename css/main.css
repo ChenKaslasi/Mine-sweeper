@@ -10,6 +10,7 @@ html {
 } */
 
 
+
 body {
   display: flex;
   flex-direction: column;
@@ -20,7 +21,7 @@ body {
   margin: 0;
 }
 
-.Header {
+.header {
   display: flex;
   font-family: 'Indie Flower', cursive;
   background-color: #ff1a1a;
@@ -32,6 +33,7 @@ body {
   transition: 0.5s;
   justify-content: center;
 }
+
 
 .container {
   display: flex;
@@ -162,3 +164,23 @@ img {
   transition: 0.3;
 }
 
+
+.footer {
+  display: flex;
+  font-family: 'Indie Flower', cursive;
+  
+  background-color: #ff1a1a;
+  color: white;
+  width: 100vw;
+  box-shadow: 4px 4px 8px black;
+  transition: 0.5s;
+  justify-content: center;
+  align-self: flex-end;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+}
