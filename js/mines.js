@@ -45,4 +45,3 @@ function setMinesNegsCount(board, row, col) {
   }
   return count;
 }
-

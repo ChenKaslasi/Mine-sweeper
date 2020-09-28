@@ -46,7 +46,6 @@ function HidelCell(coord) {
 
 
 
-
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -83,4 +82,44 @@ function startTimer() {
   if (sec<10) { sec = "0" + sec; };
 
   elTimer.innerText = `${min}:${sec} `;
+}
+
+
+
+function copyBoard(board) {
+  var newBoard = [];
+  for (var i = 0; i < board.length; i++) {
+      newBoard[i] = [];
+      for (var j = 0; j < board[0].length; j++) {
+          var cell = board[i][j];
+          newBoard[i][j] = {
+              minesAroundCount: cell.minesAroundCount,
+              isFirst: cell.isFirst,
+              isShown: cell.isShown,
+              isMine: cell.isMine,
+              isMarked: cell.isMarked
+          }
+      }
+  }
+  return newBoard;
+}
+
+
+
+function copyBoard(board) {
+  var newBoard = [];
+  for (var i = 0; i < board.length; i++) {
+      newBoard[i] = [];
+      for (var j = 0; j < board[0].length; j++) {
+          var cell = board[i][j];
+          newBoard[i][j] = {
+              minesAroundCount: cell.minesAroundCount,
+              isFirst: cell.isFirst,
+              isShown: cell.isShown,
+              isMine: cell.isMine,
+              isMarked: cell.isMarked
+          }
+      }
+  }
+  return newBoard;
 }
