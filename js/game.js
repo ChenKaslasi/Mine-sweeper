@@ -35,9 +35,9 @@ var elLevels = document.querySelector('.levels ');
 var elTable = document.querySelector('.table')
 var elWin = document.querySelector(".winElement")
 var elLives = document.querySelector('.heart')
+var elSafeClick = document.querySelector('.safeClickBtn')
 
 var elEmoji = document.createElement('div')
-var elSafeClick = document.createElement('buttun')
 
 
 
@@ -86,14 +86,16 @@ function initGame() {
     elHints.children[i].src = BulbOff
   }
 
-  elSafeClick.style.display = "block"
-  elEmoji.style.display = "block"
+  
   elHints.style.pointerEvents = "initial"
   elWin.style.display = "none";
   document.querySelector('.imgWin').style.display = 'none'
   document.querySelector('.imgLose').style.display = 'none'
   document.querySelector('.imgDefult').style.display = 'block'
   elLives.innerText = LIVES.repeat(3);
+  document.querySelector('.safeClickBtn').innerText = 'safe Click (3)'
+  elSafeClick.style.pointerEvents = 'initial';
+  elSafeClick.style.backgroundColor = 'red'
 }
 
 
@@ -344,8 +346,6 @@ function findSafeCoord() {
 
 
 function setWinElement() {
-  elSafeClick.style.display = "none"
-  elHints.style.pointerEvents = "none"
   elWin.style.display = "block"
 }
 
