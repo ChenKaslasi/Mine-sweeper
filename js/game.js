@@ -13,13 +13,9 @@ var gCountHints = 3;
 var gCountSafeClicks = 3;
 var gHintMode = false;
 var gLastSafeCoord = null;
-var defultSmiley = "<img src='images/basic.jpg'/>"
-var VictorySmiley = "<img src='images/victory.jpg'/>"
-var LoseSmiley = "<img src='images/lose.png'/>"
 var BulbOn = 'images/Lightbulb-On.png'
 var BulbOff = 'images/Lightbulb-Off.png'
 var gCurrLevel = 'Easy'
-var gPrevBoard;
 
 var gIsFirstClick;
 var gfirstCoord;
@@ -31,20 +27,18 @@ var isGameOn;
 
 
 // Elements
-var elBody = document.querySelector('body')
 var elContainer = document.querySelector('.container')
 var elSmiley = document.querySelector('.smiley')
 var elHints = document.querySelector('.hints')
 var elTimer = document.querySelector('.timer');
 var elLevels = document.querySelector('.levels ');
+var elTable = document.querySelector('.table')
+var elWin = document.querySelector(".winElement")
+var elLives = document.querySelector('.heart')
 
-var elTable = document.createElement('table')
-var elPervTable = document.createElement('table')
 var elEmoji = document.createElement('div')
-var elLives = document.createElement('div')
 var elSafeClick = document.createElement('buttun')
-var elFooter = document.createElement('div')
-var winEl = document.createElement('div');
+
 
 
 // Disable right click
@@ -73,10 +67,8 @@ function initGame() {
   gCountSafeClicks = 3;
   gHintMode = false;
   gScore = 0;
-  elSmiley.innerHTML = defultSmiley
-  elTable.style.pointerEvents = 'initial';
   gLastSafeCoord = null;
-  gPrevBoard = [];
+  elTable.style.pointerEvents = 'initial';
 
 
   // board init
@@ -96,10 +88,12 @@ function initGame() {
 
   elSafeClick.style.display = "block"
   elEmoji.style.display = "block"
-  elLives.style.display = "block"
-  elSmiley.style.pointerEvents = "initial"
   elHints.style.pointerEvents = "initial"
-  elLevels.style.pointerEvents = "initial"
+  elWin.style.display = "none";
+  document.querySelector('.imgWin').style.display = 'none'
+  document.querySelector('.imgLose').style.display = 'none'
+  document.querySelector('.imgDefult').style.display = 'block'
+  elLives.innerText = LIVES.repeat(3);
 }
 
 
@@ -135,38 +129,15 @@ function renderBoard(board) {
     }
     htmlStrTable += '</tr>'
   }
-  htmlStrTable += '</tbody></table>\n'
-
-
+  htmlStrTable += '</tbody> </table>\n'
   elTable.innerHTML = htmlStrTable
-  elContainer.appendChild(elTable)
-
-
-  // rendering - safe Click buttun 
-  var htmlStrSafeClick = `<button class="safeClickBtn" onclick="activateSafeClick()">safe Click (${gCountSafeClicks})</button>`;
-
-  elSafeClick.innerHTML = htmlStrSafeClick;
-  elContainer.appendChild(elSafeClick);
 
   // rendering - mine & flag & life Emojis 
   var htmlStrEmoji = `<div class="emojis"> <span class="flag">🚩${gFlagsCount}</span>\n <span class="mine">💣${gMinesCount}</span>\n `;
 
   elEmoji.innerHTML = htmlStrEmoji;
   elContainer.appendChild(elEmoji);
-
-  // rendering - lives 
-  var htmlStrLives = `<div class="heart ">${LIVES.repeat(gLifeCount)}</div> </div>`
-  elLives.innerHTML = htmlStrLives;
-  elContainer.appendChild(elLives)
 }
-
-// rendering - footer
-var htmlFooter = '';
-htmlFooter += `<div class="footer">Ⓒ Chen kaslasi</div>`
-
-elFooter.innerHTML = htmlFooter;
-elBody.appendChild(elFooter)
-
 // ------------------------------------------ Start game -------------------------------------//
 
 function cellClicked(i, j) {
@@ -190,7 +161,6 @@ function cellClicked(i, j) {
       elEmoji.querySelector('.mine').innerText = `💣${gMinesCount}`;
       gLifeCount--;
       elLives.innerText = LIVES.repeat(gLifeCount);
-      elLives.style.fontSize = "xx-large";
       if (gLifeCount <= 0) {
         setGameOver()
       }
@@ -199,7 +169,6 @@ function cellClicked(i, j) {
       setWin();
     }
   }
-  gPrevBoard.push(copyBoard(gBoard))
 }
 
 
@@ -264,7 +233,8 @@ function expandShown(i, j) {
 
 function setGameOver() {
   isGameOn = false
-  elSmiley.innerHTML = LoseSmiley;
+  document.querySelector('.imgLose').style.display = 'block'
+  document.querySelector('.imgDefult').style.display = 'none'
   clearInterval(gTimerInterval);
   elTable.style.pointerEvents = 'none';
   revealAllBoard(gBoard)
@@ -272,7 +242,8 @@ function setGameOver() {
 
 function setWin() {
   isGameOn = false
-  elSmiley.innerHTML = VictorySmiley;
+  document.querySelector('.imgWin').style.display = 'block'
+  document.querySelector('.imgDefult').style.display = 'none'
   clearInterval(gTimerInterval);
   elTable.style.pointerEvents = 'none';
   revealAllBoard(gBoard);
@@ -373,31 +344,10 @@ function findSafeCoord() {
 
 
 function setWinElement() {
-  var htmlStrPopUp =
-    `  <div class="winElement" >
-    <h2>You won!</h2>
-
-    <button type="submit" class="submitBtn" onclick="reStartGame()" >Play again</button>
-</div> `
-
   elSafeClick.style.display = "none"
-  elEmoji.style.display = "none"
-  elLives.style.display = "none"
-  elSmiley.style.pointerEvents = "none"
   elHints.style.pointerEvents = "none"
-  elLevels.style.pointerEvents = "none"
-
-  winEl.innerHTML = htmlStrPopUp
-  elContainer.appendChild(winEl);
-
+  elWin.style.display = "block"
 }
-
-function reStartGame() {
-  winEl.innerHTML = '';
-  initGame()
-}
-
-// undo 
 
 
 

@@ -1,28 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/main.css">
   <title>Mine-Sweeper - Chen Kaslasi</title>
 </head>
+
 <body onload="initGame()">
   <div class="header">
     <h1>Mine-Sweeper </h1>
   </div>
   <div class="container">
-    <div class="smiley"><img src="images/basic.jpg" ></div>
-     
+    <div class="smiley">
+      <img class="imgDefult" src="images/basic.jpg">
+      <img class="imgLose" src="images/lose.png">
+      <img class="imgWin" src="images/victory.jpg">
+    </div>
     <div class="timer">00:00</div>
+    <div class="heart ">💖💖💖</div>
     <div class="levels">
       <button class="easy" onclick="setLevels(this)">Easy</button>
       <button class="hard" onclick="setLevels(this)">Hard</button>
       <button class="extreme" onclick="setLevels(this)">Extreme</button>
     </div>
-   <div class="hints">
-    <img src="images/Lightbulb-Off.png" onclick="activateHint(this)">
-    <img src="images/Lightbulb-Off.png" onclick="activateHint(this)">
-    <img src="images/Lightbulb-Off.png" onclick="activateHint(this)">
+    <div class="hints">
+      <img src="images/Lightbulb-Off.png" onclick="activateHint(this)">
+      <img src="images/Lightbulb-Off.png" onclick="activateHint(this)">
+      <img src="images/Lightbulb-Off.png" onclick="activateHint(this)">
+    </div>
+    <div class="table"></div>
+    <button class="safeClickBtn" onclick="activateSafeClick()">safe Click (3)</button>
+    <div class="winElement" style="display: none;">
+      <h2>You won!</h2>
+      <button type="submit" class="submitBtn" onclick="initGame()">Play again</button>
+    </div>
+    <div class="footer">Ⓒ Chen kaslasi</div>
   </div>
   <script src="js/game.js"></script>
   <script src="js/utils.js"></script>
